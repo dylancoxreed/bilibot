@@ -1,30 +1,3 @@
-# 哔哩哔哩聊天机器人
-
-由[哔哩哔哩](https://bilibili.com)用户评论微调训练而成的本地聊天机器人。支持文字聊天，也可以通过 questions.txt 生成针对给定问题的语音对话。
-
-本项目文字生成使用的基础模型为 [Qwen1.5-32B-Chat](https://huggingface.co/Qwen/Qwen1.5-32B-Chat)，借助苹果 [mlx-lm LORA 示例项目](https://github.com/ml-explore/mlx-examples/blob/main/llms/mlx_lm/LORA.md) 对基础模型进行微调训练。语音生成部分基于开源项目 [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)，问题语音来自 B 站用户[白菜工厂1145号员工](https://space.bilibili.com/518098961)训练的派蒙语音模型。
-
-### 文件结构
-
-项目主要脚本存放在 `main/` 文件夹下，模型存放于 `models/` 文件夹。提示词模板、问题列表存放在 `text/` 文件夹下。`tools/compress_model.py` 可以对完整模型进行量化压缩，大大加快模型内容生成速度。
-
-## 运行指南
-
-本项目基于 Python 编程语言，程序运行使用的 Python 版本为 3.10，建议使用 [Anaconda](https://www.anaconda.com) 配置 Python 环境。以下配置过程已在 macOS 系统测试通过。
-
-
-### 配置环境
-
-```
-conda create -n bilibot python=3.10
-conda activate bilibot
-cd bilibot
-pip install -r requirements.txt
-```
-
-### 模型微调训练与推理测试
-
-使用控制台指令，借助 [mlx-lm](https://github.com/ml-explore/mlx-examples/blob/main/llms/mlx_lm/LORA.md) 对 Qwen1.5-32B-Chat 进行微调：
 
 ```
 python -m mlx_lm.lora --model models/Qwen1.5-32B-Chat --data data/ --train --iters 1000 --batch-size 16 --lora-layers 12
